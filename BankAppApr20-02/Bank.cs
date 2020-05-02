@@ -7,9 +7,7 @@ namespace BankAppApr20_02
 {
     static class Bank
     {
-        private static List<Account> accounts = new List<Account>();
-        private static List<Transaction> transactions = new List<Transaction>();
-        //private static BankContext db = new BankContext();
+        private static BankContext db = new BankContext();
         /// <summary>
         /// Create an account with the bank
         /// </summary>
@@ -26,26 +24,25 @@ namespace BankAppApr20_02
                 EmailAddress = emailAddress,
                 AccountType = accountType
             };
-            accounts.Add(account);
-
+            db.Accounts.Add(account);
+            db.SaveChanges();
             if (initialAmount > 0)
             {
                 Deposit(account.AccountNumber, initialAmount);
             }
 
-            //db.Accounts.Add(account);
-            //db.SaveChanges();
+
             return account;
         }
 
         public static IEnumerable<Account> GetAccounts(string emailAddress)
         {
-            return accounts.Where(a => a.EmailAddress == emailAddress);
+            return db.Accounts.Where(a => a.EmailAddress == emailAddress);
         }
 
         public static IEnumerable<Transaction> GetTransactionsByAccountNumber(int accountNumber)
         {
-            return transactions
+            return db.Transactions
                     .Where(t => t.AccountNumber == accountNumber)
                     .OrderByDescending(t => t.TransactionDate);
         }
@@ -54,7 +51,7 @@ namespace BankAppApr20_02
         {
             //Locate the account
             //LINQ
-            var account = accounts.SingleOrDefault(account => account.AccountNumber == accountNumber);
+            var account = db.Accounts.SingleOrDefault(account => account.AccountNumber == accountNumber);
 
             if (account == null)
             {
@@ -73,8 +70,8 @@ namespace BankAppApr20_02
                 TransactionType = TypeOfTransaction.Credit,
                 AccountNumber = accountNumber
             };
-            transactions.Add(transaction);
-            //db.SaveChanges();
+            db.Transactions.Add(transaction);
+            db.SaveChanges();
         }
 
 
@@ -82,7 +79,7 @@ namespace BankAppApr20_02
         {
             //Locate the account
             //LINQ
-            var account = accounts.SingleOrDefault(account => account.AccountNumber == accountNumber);
+            var account = db.Accounts.SingleOrDefault(account => account.AccountNumber == accountNumber);
 
             if (account == null)
             {
@@ -101,8 +98,8 @@ namespace BankAppApr20_02
                 TransactionType = TypeOfTransaction.Debit,
                 AccountNumber = accountNumber
             };
-            transactions.Add(transaction);
-            //db.SaveChanges();
+            db.Transactions.Add(transaction);
+            db.SaveChanges();
         }
     }
 }

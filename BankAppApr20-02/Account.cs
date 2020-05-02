@@ -19,7 +19,6 @@ namespace BankAppApr20_02
     /// </summary>
     class Account
     {
-        private static int lastAccountNumber = 0;
         #region Properties
         /// <summary>
         /// Unique account number for the account
@@ -32,6 +31,7 @@ namespace BankAppApr20_02
         public string AccountName { get; set; }
         public TypeOfAccounts AccountType { get; set; }
         public decimal Balance { get; private set; }
+        public string MemberType { get; set; }
         public DateTime CreatedDate { get; private set; }
         #endregion
 
@@ -39,7 +39,6 @@ namespace BankAppApr20_02
         #region Constructor
         public Account()
         {
-            AccountNumber = ++lastAccountNumber;
             CreatedDate = DateTime.Now;
         }
 
