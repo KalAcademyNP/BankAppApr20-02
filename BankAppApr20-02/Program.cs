@@ -46,23 +46,62 @@ namespace BankAppApr20_02
 
                     case "2":
                         PrintAllAccounts();
-                        Console.Write("Account Number: ");
-                        var accountNumber = Convert.ToInt32(Console.ReadLine());
-                        Console.Write("Amount to Deposit: ");
-                        amount = Convert.ToDecimal(Console.ReadLine());
+                        try
+                        {
+                            Console.Write("Account Number: ");
+                            var acctNumber = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Amount to Deposit: ");
+                            amount = Convert.ToDecimal(Console.ReadLine());
 
-                        Bank.Deposit(accountNumber, amount);
-                        Console.WriteLine("Deposit successfully completed!");
+                            Bank.Deposit(acctNumber, amount);
+                            Console.WriteLine("Deposit successfully completed!");
+                        }
+                        
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Input is invalid. Please try again!");
+                        }
+                        catch(OverflowException)
+                        {
+                            Console.WriteLine("Input is invalid. Please try again!");
+                        }
+                        catch(ArgumentException ax)
+                        {
+                            Console.WriteLine($"Error - {ax.Message}");
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Something went wrong! Please try again");
+                        }
                         break;
                     case "3":
                         PrintAllAccounts();
-                        Console.Write("Account Number: ");
-                        accountNumber = Convert.ToInt32(Console.ReadLine());
-                        Console.Write("Amount to Withdraw: ");
-                        amount = Convert.ToDecimal(Console.ReadLine());
+                        try
+                        {
+                            Console.Write("Account Number: ");
+                            var aNumber = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Amount to Withdraw: ");
+                            amount = Convert.ToDecimal(Console.ReadLine());
 
-                        Bank.Withdraw(accountNumber, amount);
-                        Console.WriteLine("Withdrawal successfully completed!");
+                            Bank.Withdraw(aNumber, amount);
+                            Console.WriteLine("Withdrawal successfully completed!");
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Input is invalid. Please try again!");
+                        }
+                        catch (OverflowException)
+                        {
+                            Console.WriteLine("Input is invalid. Please try again!");
+                        }
+                        catch (ArgumentException ax)
+                        {
+                            Console.WriteLine($"Error - {ax.Message}");
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Something went wrong! Please try again");
+                        }
                         break;
                     case "4":
                         PrintAllAccounts();
@@ -70,7 +109,7 @@ namespace BankAppApr20_02
                     case "5":
                         PrintAllAccounts();
                         Console.Write("Account Number: ");
-                        accountNumber = Convert.ToInt32(Console.ReadLine());
+                        var accountNumber = Convert.ToInt32(Console.ReadLine());
 
                         var transactions = Bank.GetTransactionsByAccountNumber(accountNumber);
                         foreach (var transaction in transactions)

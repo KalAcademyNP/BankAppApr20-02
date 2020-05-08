@@ -47,6 +47,12 @@ namespace BankAppApr20_02
                     .OrderByDescending(t => t.TransactionDate);
         }
 
+        /// <summary>
+        /// Deposit money into the account
+        /// </summary>
+        /// <param name="accountNumber">Account number</param>
+        /// <param name="amount">Amount to deposit</param>
+        /// <exception cref="ArgumentException" />
         public static void Deposit(int accountNumber, decimal amount)
         {
             //Locate the account
@@ -55,8 +61,8 @@ namespace BankAppApr20_02
 
             if (account == null)
             {
-                Console.WriteLine("Account number is invalid!");
-                return;
+                //Raise an exception
+                throw new ArgumentException("Account number is invalid");
             }
             //Deposit on the account
 
@@ -83,8 +89,8 @@ namespace BankAppApr20_02
 
             if (account == null)
             {
-                Console.WriteLine("Account number is invalid!");
-                return;
+                //Raise an exception
+                throw new ArgumentException("Account number is invalid");
             }
             //Deposit on the account
 
